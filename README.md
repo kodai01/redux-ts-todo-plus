@@ -1,3 +1,10 @@
+# 注意!!
+
+- これは、redux-ts-todo-advanced と紐づいています。
+- 参考にした記事
+  `https://github.com/eslint/eslint/issues/13283#issuecomment-628962032`
+  にあるように、`yarn add eslint-config-react-app`をした
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
