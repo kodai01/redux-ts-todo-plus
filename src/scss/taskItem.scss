@@ -1,0 +1,17 @@
+.task-item {
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-list {
+    display: flex;
+
+    & > * :not(:first-child) {
+      margin-left: 16px;
+    }
+  }
+}

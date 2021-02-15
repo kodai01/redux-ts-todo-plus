@@ -1,0 +1,11 @@
+.task-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+
+  & > .task-item {
+    &:not(:first-child) {
+      margin-top: 16px;
+    }
+  }
+}
