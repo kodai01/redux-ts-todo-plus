@@ -1,0 +1,16 @@
+@import './variables';
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $pink;
+  height: 100vh;
+
+  .root {
+    background: $white;
+    height: 80vh;
+    width: 80%;
+    padding: 60px;
+  }
+}
