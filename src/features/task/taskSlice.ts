@@ -41,14 +41,45 @@ export const taskSlice = createSlice({
       };
       state.tasks = [newTask, ...state.tasks];
     },
+    //3.1.modalの開閉
+    toggleModalOpen: (state, action) => {
+      state.isModalOpen = action.payload;
+    },
+
+    //3.2.どのtaskを選択しているか管理
+    editTask: (state, action) => {
+      state.selectedTask = action.payload;
+    },
+
+    //3.4.taskの編集
+    replaceTask: (state, action) => {
+      //state.tasksの中から指定したtaskを抜き出す
+      const task = state.tasks.find((t) => t.id === action.payload.id);
+
+      if (task) {
+        //抜き出したtasのtitleを書き換える
+        task.title = action.payload.title;
+      }
+    },
   },
 });
 //1.4.actionをexport
-export const { createTask } = taskSlice.actions;
+export const {
+  createTask,
+  toggleModalOpen,
+  editTask,
+  replaceTask,
+} = taskSlice.actions;
 //1.5.useSelectorを用いてstateの中身をReactに反映
 //                                                               => state.nameで書いたこと.Taskstateに書いてあるtasksをselectTaskが持つ
 export const selectTask = (state: RootState): TaskState['tasks'] =>
   state.task.tasks;
+
+export const selectIsModalOpen = (state: RootState): TaskState['isModalOpen'] =>
+  state.task.isModalOpen;
+//3.3.  3.2でやったのをexport
+export const selectEditTask = (state: RootState): TaskState['selectedTask'] =>
+  state.task.selectedTask;
 //1.6.store.tsへ
 //useSelector(selectTask)
 

@@ -8,20 +8,38 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SimpleModal from '../../modal/simpleModal';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectIsModalOpen,
+  toggleModalOpen,
+  editTask,
+  selectEditTask,
+  replaceTask,
+} from '../taskSlice';
 
 interface PropTypes {
   task: { id: number; title: string; completed: boolean };
 }
 
 const TaskItem: React.FC<PropTypes> = ({ task }) => {
-  const [open, setOpen] = React.useState(false);
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const editValue = useSelector(selectEditTask);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
-    setOpen(true);
+    dispatch(editTask(task));
+    dispatch(toggleModalOpen(true));
   };
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch(toggleModalOpen(false));
+  };
+
+  const handleReplace = (data: any) => {
+    const sendData = { ...replaceTask, title: data.taskTitle };
+    dispatch(editTask(data));
+    dispatch(toggleModalOpen(false));
+    console.log(data);
   };
 
   return (
@@ -45,7 +63,7 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
       </div>
       <Modal
         className="modal"
-        open={open}
+        open={isModalOpen}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -59,8 +77,9 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
               label="Edittask"
               variant="outlined"
               name="taskTitle"
+              defaultValue={editValue.title}
             />
-            <button className="submit" type="submit">
+            <button className="submit" type="button" onClick={handleReplace}>
               登録
             </button>
             <button className="cancel" type="button" onClick={handleClose}>
