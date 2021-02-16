@@ -55,7 +55,7 @@ export const taskSlice = createSlice({
     replaceTask: (state, action) => {
       //state.tasksの中から指定したtaskを抜き出す
       const task = state.tasks.find((t) => t.id === action.payload.id);
-
+      console.log(task, 'taskはこれです');
       if (task) {
         //抜き出したtasのtitleを書き換える
         task.title = action.payload.title;

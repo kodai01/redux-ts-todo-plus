@@ -4,13 +4,12 @@ import { useForm } from 'react-hook-form';
 import '../../../scss/taskForm.scss';
 import TextField from '@material-ui/core/TextField';
 import { createTask } from '../taskSlice';
+import { Inputs } from '../type';
 
 const TaskForm: React.FC = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
-  type Inputs = {
-    taskTitle: string;
-  };
+
   const handleCreate = (data: Inputs) => {
     dispatch(createTask(data.taskTitle)); //createTaskの中の引数がtitleのaction.payloadとなって渡される
     console.log(data);

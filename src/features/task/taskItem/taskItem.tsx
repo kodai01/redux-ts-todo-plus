@@ -16,6 +16,8 @@ import {
   selectEditTask,
   replaceTask,
 } from '../taskSlice';
+import { Inputs } from '../type';
+import { useForm } from 'react-hook-form';
 
 interface PropTypes {
   task: { id: number; title: string; completed: boolean };
@@ -25,6 +27,7 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
   const isModalOpen = useSelector(selectIsModalOpen);
   const editValue = useSelector(selectEditTask);
   const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
 
   const handleOpen = () => {
     dispatch(editTask(task));
@@ -35,9 +38,10 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
     dispatch(toggleModalOpen(false));
   };
 
-  const handleReplace = (data: any) => {
-    const sendData = { ...replaceTask, title: data.taskTitle };
-    dispatch(editTask(data));
+  const handleReplace = (data: Inputs) => {
+    const sendData = { ...editValue, title: data.taskTitle }; //...replaceTaskではない
+    console.log(sendData);
+    dispatch(replaceTask(sendData));
     dispatch(toggleModalOpen(false));
     console.log(data);
   };
@@ -64,22 +68,26 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
       <Modal
         className="modal"
         open={isModalOpen}
-        onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
         <div className="modal-content">
           <h2>編集画面</h2>
-          <form action="POST">
+          <form
+            onSubmit={handleSubmit(handleReplace)}
+            noValidate
+            autoComplete="off"
+          >
             <TextField
               className="text-field"
               id="outlined-basic"
               label="Edittask"
               variant="outlined"
               name="taskTitle"
+              inputRef={register}
               defaultValue={editValue.title}
             />
-            <button className="submit" type="button" onClick={handleReplace}>
+            <button className="submit" type="submit">
               登録
             </button>
             <button className="cancel" type="button" onClick={handleClose}>
