@@ -1,0 +1,48 @@
+@import './variables';
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &-content {
+    width: 80%;
+    background-color: $white;
+    padding: 40px;
+
+    & > h2 {
+      font-size: 48px;
+      font-weight: $bold;
+    }
+
+    & > form {
+      display: flex;
+      align-items: center;
+
+      & > *:not(:first-child) {
+        margin-left: 16px;
+      }
+
+      .text-field {
+        flex-grow: 1;
+      }
+
+      .submit,
+      .cancel {
+        width: 200px;
+        padding: 16px;
+        border-radius: 16px;
+      }
+
+      .submit {
+        background-color: $skyblue;
+      }
+
+      .cancel {
+        background-color: $white;
+        border: 2px solid $black;
+      }
+    }
+  }
+}
