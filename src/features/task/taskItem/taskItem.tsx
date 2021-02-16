@@ -15,6 +15,8 @@ import {
   editTask,
   selectEditTask,
   replaceTask,
+  completedTask,
+  deleteTask,
 } from '../taskSlice';
 import { Inputs } from '../type';
 import { useForm } from 'react-hook-form';
@@ -55,13 +57,13 @@ const TaskItem: React.FC<PropTypes> = ({ task }) => {
       <div className="icon-list">
         <Checkbox
           checked={task.completed}
-          onClick={() => console.log(task.id)}
+          onClick={() => dispatch(completedTask(task))}
           inputProps={{ 'aria-label': 'primary checkbox' }}
         />
         <button onClick={handleOpen}>
           <EditIcon />
         </button>
-        <button onClick={() => console.log('delete', task.id)}>
+        <button onClick={() => dispatch(deleteTask(task))}>
           <DeleteIcon />
         </button>
       </div>

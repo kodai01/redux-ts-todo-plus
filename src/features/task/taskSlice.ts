@@ -1,5 +1,6 @@
 //1.0. createSliceをimport
 //reducerとactionを一緒に扱える
+import { AccordionActions } from '@material-ui/core';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
@@ -61,6 +62,20 @@ export const taskSlice = createSlice({
         task.title = action.payload.title;
       }
     },
+
+    //4.1task完了未完了のチェック変更
+    completedTask: (state, action) => {
+      const task = state.tasks.find((t) => t.id === action.payload.id);
+      //taskが存在すれば
+      if (task) {
+        task.completed = !task.completed;
+      }
+    },
+    //4.2.taskの削除
+    deleteTask: (state, action) => {
+      //指定したtask以外で新しくstate.tasksの配列を作成し直している
+      state.tasks = state.tasks.filter((t) => t.id !== action.payload.id);
+    },
   },
 });
 //1.4.actionをexport
@@ -69,6 +84,8 @@ export const {
   toggleModalOpen,
   editTask,
   replaceTask,
+  completedTask,
+  deleteTask,
 } = taskSlice.actions;
 //1.5.useSelectorを用いてstateの中身をReactに反映
 //                                                               => state.nameで書いたこと.Taskstateに書いてあるtasksをselectTaskが持つ
